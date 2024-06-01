@@ -6,25 +6,27 @@ import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.fittracker.R;
 import com.example.fittracker.Adapter.ExercisesAdapter;
 import com.example.fittracker.api.Api;
 import com.example.fittracker.api.Exercise;
 import com.example.fittracker.api.RetrofitClient;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -41,7 +43,7 @@ public class ExercisesFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_exercises, container, false);
         recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -95,7 +97,11 @@ public class ExercisesFragment extends Fragment {
                         exerciseList.addAll(response.body());
                         mainHandler.post(() -> adapter.notifyDataSetChanged());
                     } else {
-                        mainHandler.post(() -> Toast.makeText(getContext(), "Failed to load data", Toast.LENGTH_SHORT).show());
+                        mainHandler.post(() -> {
+                            if (isAdded()) {
+                                Toast.makeText(getContext(), "Failed to load data", Toast.LENGTH_SHORT).show();
+                            }
+                        });
                     }
                 }
 
@@ -103,7 +109,9 @@ public class ExercisesFragment extends Fragment {
                 public void onFailure(Call<List<Exercise>> call, Throwable t) {
                     mainHandler.post(() -> {
                         progressBar.setVisibility(View.GONE);
-                        Toast.makeText(getContext(), "Failed to connect", Toast.LENGTH_SHORT).show();
+                        if (isAdded()) {
+                            Toast.makeText(getContext(), "Failed to connect: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
                     });
                 }
             });
@@ -113,5 +121,13 @@ public class ExercisesFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (executorService != null && !executorService.isShutdown()) {
+            executorService.shutdown();
+        }
     }
 }

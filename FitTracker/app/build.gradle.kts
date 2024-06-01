@@ -54,4 +54,6 @@ dependencies {
 
     implementation ("com.etebarian:meow-bottom-navigation:1.2.0")
 
+    implementation ("com.airbnb.android:lottie:3.7.2")
+
 }

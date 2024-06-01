@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // Set the first selected item
-        meowBottomNavigation.show(1, true);
+        meowBottomNavigation.show(2, true);
     }
 
     private boolean loadFragment(Fragment fragment) {
