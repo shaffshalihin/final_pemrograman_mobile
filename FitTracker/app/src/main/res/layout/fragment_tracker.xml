@@ -14,7 +14,8 @@
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:text="Your Exercises"
-            android:textSize="30dp"/>
+            android:textSize="30dp"
+            android:textColor="@color/white"/>
 
     </LinearLayout>
 
@@ -24,21 +25,7 @@
         android:layout_height="match_parent"
         android:padding="16dp"
         android:layout_marginTop="40dp"
-        android:layout_above="@id/nav_layout"
         tools:listitem="@layout/item_bookmark" />
 
-    <LinearLayout
-        android:id="@+id/nav_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="vertical">
-
-        <include
-            android:id="@+id/nav"
-            layout="@layout/navigation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
 
 </RelativeLayout>

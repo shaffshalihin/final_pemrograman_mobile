@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#11171e"
+    android:background="#6102BF"
     tools:context=".activity.MainActivity">
 
     <FrameLayout
@@ -12,4 +12,19 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <com.etebarian.meowbottomnavigation.MeowBottomNavigation
+        android:id="@+id/meow_bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:mbn_circleColor="#6102BF"
+        app:mbn_backgroundBottomColor="#0A0213"
+        app:mbn_countBackgroundColor="#6102BF"
+        app:mbn_countTextColor="#FFFFFF"
+        app:mbn_defaultIconColor="#FFFFFF"
+        app:mbn_rippleColor="#FFFFFF"
+        app:mbn_selectedIconColor="#FFFFFF"
+        app:mbn_shadowColor="#0A0213"
+        android:layout_alignParentBottom="true"
+        />
+
+</RelativeLayout>

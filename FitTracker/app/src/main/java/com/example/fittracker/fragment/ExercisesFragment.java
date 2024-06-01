@@ -113,16 +113,5 @@ public class ExercisesFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        ImageView iv_fragment = view.findViewById(R.id.iv_tracker_fragment);
-
-        iv_fragment.setOnClickListener(v -> {
-            TrackerFragment trackerFragment = new TrackerFragment();
-            FragmentManager fragmentManager = getParentFragmentManager();
-            fragmentManager
-                    .beginTransaction()
-                    .replace(R.id.frame_container, trackerFragment)
-                    .commit();
-        });
     }
 }

@@ -4,30 +4,77 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
 import com.example.fittracker.R;
+import com.example.fittracker.fragment.ExercisesFragment;
 import com.example.fittracker.fragment.TrackerFragment;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 public class MainActivity extends AppCompatActivity {
+    private MeowBottomNavigation meowBottomNavigation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
+        meowBottomNavigation = findViewById(R.id.meow_bottom_navigation);
 
-        TrackerFragment profile = new TrackerFragment();
+        // Add navigation items
+        meowBottomNavigation.add(new MeowBottomNavigation.Model(1, R.drawable.baseline_accessibility_24));
+        meowBottomNavigation.add(new MeowBottomNavigation.Model(2, R.drawable.baseline_admin_panel_settings_24));
 
-        Fragment fragment = fragmentManager.findFragmentByTag(TrackerFragment.class.getSimpleName());
+        // Set default fragment
+        loadFragment(new TrackerFragment());
 
-        if (!(fragment instanceof TrackerFragment)) {
-            fragmentManager
-                    .beginTransaction()
-                    .add(R.id.frame_container, profile)
-                    .commit();
+        // Set listener for navigation item click
+        meowBottomNavigation.setOnClickMenuListener(model -> {
+            Fragment fragment = null;
+            switch (model.getId()) {
+                case 1:
+                    fragment = new ExercisesFragment();
+                    break;
+                case 2:
+                    fragment = new TrackerFragment();
+                    break;
+            }
+            loadFragment(fragment);
+            return null;
+        });
+
+        // Set listener for default selected item
+        meowBottomNavigation.setOnShowListener(model -> {
+            Fragment fragment = null;
+            switch (model.getId()) {
+                case 1:
+                    fragment = new ExercisesFragment();
+                    break;
+                case 2:
+                    fragment = new TrackerFragment();
+                    break;
+            }
+            loadFragment(fragment);
+            return null;
+        });
+
+        // Set the first selected item
+        meowBottomNavigation.show(1, true);
+    }
+
+    private boolean loadFragment(Fragment fragment) {
+        if (fragment != null) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+            fragmentTransaction.replace(R.id.frame_container, fragment);
+            fragmentTransaction.commit();
+            return true;
         }
+        return false;
     }
 }
+
+

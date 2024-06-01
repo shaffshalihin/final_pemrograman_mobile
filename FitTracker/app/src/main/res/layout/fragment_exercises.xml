@@ -22,34 +22,30 @@
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="50dp"
             android:layout_marginBottom="70dp"
             tools:listitem="@layout/item_exercise" />
     </RelativeLayout>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="10dp"
+        android:layout_margin="5dp"
+        >
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/search_view"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="#BF333333"
+        android:background="#FFFFFF"
         app:queryHint="Search"
         app:iconifiedByDefault="false"
-        android:textColor="#f4f4f4"/>
+        android:textColor="#f4f4f4" />
+    </androidx.cardview.widget.CardView>
 
 
-    <LinearLayout
-        android:id="@+id/nav_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="vertical">
 
-        <include
-            android:id="@+id/nav"
-            layout="@layout/navigation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
 
 
 </RelativeLayout>
